@@ -7,9 +7,9 @@ Given a matrix like,
 4 5 6
 7 8 9
 rotate it to get
-7 4 1
-8 5 2
-9 6 3
+3 6 9
+2 5 8
+1 4 7
 */
 
 void rotate(vector<vector<int>> &matrix)
@@ -26,10 +26,14 @@ void rotate(vector<vector<int>> &matrix)
         }
     }
 
-    for ( vector<int> &v : matrix )
+    for ( int j=0; j<n; j++ )
     {
-        reverse(v.begin(), v.end());
+        for ( int i=0; i<n/2; i++ )
+        {
+            swap(matrix[i][j], matrix[n-i-1][j]);
+        }
     }
+
 }
 
 int main()
