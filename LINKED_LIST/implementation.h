@@ -21,17 +21,28 @@ public:
     LinkedList(): head(NULL), tail(NULL){}
     void push_front(int data)
     {
+        Node* n = new Node(data);
         if ( head == NULL )
         {
-            Node* n = new Node(data);
             head = tail = n;
             return;
         }
-        Node* n = new Node(data);
         n -> next = head;
         head = n;
     }
 
+
+    void push_back(int data)
+    {
+        Node* n = new Node(data);
+        if ( head == NULL )
+        {
+            head = tail = n;
+            return;
+        }
+        tail -> next = n;
+        tail = n;
+    }
     
     void dispaly()
     {
