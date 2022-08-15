@@ -8,7 +8,7 @@ private:
     int data;
     Node *next;
 public:
-    Node(int d): data(d), next(NULL){}
+    Node(int d): data(d), next(nullptr){}
     friend LinkedList;
 };
 
@@ -18,11 +18,11 @@ private:
     Node* head;
     Node* tail;
 public:
-    LinkedList(): head(NULL), tail(NULL){}
+    LinkedList(): head(nullptr), tail(nullptr){}
     void push_front(int data)
     {
         Node* n = new Node(data);
-        if ( head == NULL )
+        if ( head == nullptr )
         {
             head = tail = n;
             return;
@@ -35,7 +35,7 @@ public:
     void push_back(int data)
     {
         Node* n = new Node(data);
-        if ( head == NULL )
+        if ( head == nullptr )
         {
             head = tail = n;
             return;
@@ -43,11 +43,34 @@ public:
         tail -> next = n;
         tail = n;
     }
+
+
+    void pop_front()
+    {
+        Node* temp;
+        temp = head;
+        head = head -> next;
+        temp -> next = nullptr;
+        delete temp;
+    }
+
+
+    void pop_back()
+    {
+        Node* temp = head;
+        while ( temp -> next -> next != nullptr )
+        {
+            temp = temp -> next;
+        }
+        delete temp -> next;
+        temp -> next = nullptr;
+    }
+
     
     void dispaly()
     {
         Node* temp = head;
-        while ( temp != NULL )
+        while ( temp != nullptr )
         {
             cout << temp -> data << " -> ";
             temp = temp -> next;

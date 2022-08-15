@@ -12,5 +12,13 @@ int main()
     list.push_back(-1);
 
     list.dispaly();
+    list.pop_front();
+    list.pop_front();
+    list.dispaly();
+    list.pop_back();
+    list.pop_back();
+    list.dispaly();
+
+    
     return 0;
 }
