@@ -1,5 +1,7 @@
 #include <iostream>
 #include <math.h>
+#include <string>
+#include <algorithm>
 using namespace std;
 
 // util functions
@@ -44,12 +46,24 @@ void print_number_back(int number)
 }
 
 
+// Using string
+int rev_string(int number)
+{
+    string n = to_string(number);
+
+    reverse(n.begin(), n.end());
+    number = stoi(n);
+
+    return number;
+}
+
 
 int main()
 {
     int number = 123456;
     cout << rev_number(number) << endl;
     cout << rev_number_1(number) << endl;
+    cout << rev_string(number) << endl;
     print_number_back(number);
     return 0;
 }
