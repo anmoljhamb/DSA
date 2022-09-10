@@ -82,7 +82,6 @@ public:
         return head->data;
     }
 
-
     bool empty()
     {
         return head == nullptr;
@@ -111,11 +110,10 @@ int main()
     cout << "List 2: ";
     list2.dispaly();
 
-
     LinkedList merged_list;
-    while ( (!list1.empty()) && (!list2.empty()) )
+    while ((!list1.empty()) && (!list2.empty()))
     {
-        if ( list1.top() < list2.top() )
+        if (list1.top() < list2.top())
         {
             merged_list.push_back(list1.top());
             list1.pop_front();
@@ -128,14 +126,13 @@ int main()
         }
     }
 
-
-    while ( !list1.empty() )
+    while (!list1.empty())
     {
         merged_list.push_back(list1.top());
         list1.pop_front();
     }
 
-    while ( !list2.empty() )
+    while (!list2.empty())
     {
         merged_list.push_back(list2.top());
         list2.pop_front();
