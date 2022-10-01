@@ -62,3 +62,5 @@ def solve(arr, col):
 
 if __name__ == "__main__":
     solve(arr, 0)
+
+    
