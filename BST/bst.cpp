@@ -1,124 +1,76 @@
 #include <iostream>
-#include <queue>
 using namespace std;
 
-struct ListNode
+class Node
 {
+public:
     int data;
-    ListNode *next;
-};
-
-struct BinaryTreeNode
-{
-    int data;
-    BinaryTreeNode *left, *right;
-};
-
-void push(struct ListNode **head_ref, int new_data)
-{
-    struct ListNode *new_node = new ListNode;
-    new_node->data = new_data;
-    new_node->next = (*head_ref);
-    (*head_ref) = new_node;
-}
-
-BinaryTreeNode *newBinaryTreeNode(int data)
-{
-    BinaryTreeNode *temp = new BinaryTreeNode;
-    temp->data = data;
-    temp->left = temp->right = NULL;
-    return temp;
-}
-
-void convertList2Binary(ListNode *head, BinaryTreeNode *&root)
-{
-    queue<BinaryTreeNode *> q;
-    if (head == NULL)
+    Node *left;
+    Node *right;
+    Node(int d) : data(d), left(NULL), right(NULL)
     {
-        root = NULL;
+    }
+};
+
+Node *build_tree()
+{
+    // constructs a binary tree using the preorder traversal.
+    int d;
+    cin >> d;
+
+    if (d == -1)
+        return NULL;
+
+    Node *node = new Node(d);
+    node->left = build_tree();
+    node->right = build_tree();
+
+    return node;
+}
+
+void preorder_traversal(Node *node)
+{
+    if (node == NULL)
         return;
-    }
 
-    root = newBinaryTreeNode(head->data);
-    q.push(root);
-    head = head->next;
-
-    while (head)
-    {
-        BinaryTreeNode *parent = q.front();
-        q.pop();
-        BinaryTreeNode *leftChild = NULL, *rightChild = NULL;
-        leftChild = newBinaryTreeNode(head->data);
-        q.push(leftChild);
-        head = head->next;
-        if (head)
-        {
-            rightChild = newBinaryTreeNode(head->data);
-            q.push(rightChild);
-            head = head->next;
-        }
-
-        parent->left = leftChild;
-        parent->right = rightChild;
-    }
+    cout << node->data << " ";
+    preorder_traversal(node->left);
+    preorder_traversal(node->right);
+    return;
 }
 
-void inorderTraversal(BinaryTreeNode *root)
+void inorder_traversal(Node *node)
 {
-    if (root)
-    {
-        inorderTraversal(root->left);
-        cout << root->data << " ";
-        inorderTraversal(root->right);
-    }
+    if (node == NULL)
+        return;
+
+    inorder_traversal(node->left);
+    cout << node->data << " ";
+    inorder_traversal(node->right);
+    return;
 }
 
-void preOrderTraversal(BinaryTreeNode *root)
+void postorder_traversal(Node *node)
 {
-    if (root)
-    {
-        cout << root->data << " ";
-        preOrderTraversal(root->left);
-        preOrderTraversal(root->right);
-    }
-}
+    if (node == NULL)
+        return;
 
-void postOrderTraversal(BinaryTreeNode *root)
-{
-    if (root)
-    {
-        postOrderTraversal(root->left);
-        postOrderTraversal(root->right);
-        cout << root->data << " ";
-    }
+    postorder_traversal(node->left);
+    postorder_traversal(node->right);
+    cout << node->data << " ";
+    return;
 }
 
 int main()
 {
-    struct ListNode *head = NULL;
-    push(&head, 36);
-    push(&head, 30);
-    push(&head, 25);
-    push(&head, 15);
-    push(&head, 12);
-    push(&head, 10);
 
-    BinaryTreeNode *root;
-    convertList2Binary(head, root);
-
-    cout << "Inorder Traversal of the constructed Binary Tree is: \n";
-    inorderTraversal(root);
+    Node *head = build_tree();
+    preorder_traversal(head);
     cout << endl;
-
-    cout << "Preorder Traversal of the constructed Binary Tree is: \n";
-    preOrderTraversal(root);
+    inorder_traversal(head);
     cout << endl;
-
-
-    cout << "Postorder Traversal of the constructed Binary Tree is: \n";
-    postOrderTraversal(root);
+    postorder_traversal(head);
     cout << endl;
-
 
     return 0;
 }
