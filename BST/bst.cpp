@@ -1,4 +1,5 @@
 #include <iostream>
+#include <queue>
 using namespace std;
 
 class Node
@@ -61,10 +62,38 @@ void postorder_traversal(Node *node)
     return;
 }
 
+
+Node* build_tree_from_arr(queue<int> &arr)
+{
+
+    int d = arr.front();
+    arr.pop();
+
+    if ( d == -1 )
+        return NULL;
+    
+    Node* node = new Node(d);
+    node -> left = build_tree_from_arr(arr);
+    node -> right = build_tree_from_arr(arr);
+    return node;
+}
+
+
 int main()
 {
 
-    Node *head = build_tree();
+    queue<int> arr;
+
+    int temp[] = {1, 2, -1, -1, 3, -1, -1};
+    int n = sizeof(temp)/sizeof(int);
+
+    for ( int i=0; i<n; i++ )
+    {
+        arr.push(temp[i]);
+    }
+
+
+    Node *head = build_tree_from_arr(arr);
     preorder_traversal(head);
     cout << endl;
     inorder_traversal(head);
